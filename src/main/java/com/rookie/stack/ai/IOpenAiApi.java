@@ -9,8 +9,11 @@ import com.rookie.stack.ai.domain.images.ImageResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionRequest;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 import io.reactivex.Single;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.*;
+
+import java.util.Map;
 
 /**
  * @author jaguarliu
@@ -79,5 +82,39 @@ public interface IOpenAiApi {
      */
     @POST("v1/images/generations")
     Single<ImageResponse> genImages(@Body ImageRequest imageRequest);
+
+
+    /**
+     * 修改图片
+     * <p>
+     * curl https://api.openai.com/v1/images/edits \
+     * -H "Authorization: Bearer $OPENAI_API_KEY" \
+     * -F image="@otter.png" \
+     * -F mask="@mask.png" \
+     * -F prompt="A cute baby sea otter wearing a beret" \
+     * -F n=2 \
+     * -F size="1024x1024"
+     * <p>
+     * {
+     * "created": 1589478378,
+     * "data": [
+     * {
+     * "url": "https://..."
+     * },
+     * {
+     * "url": "https://..."
+     * }
+     * ]
+     * }
+     *
+     * @param image          图片对象
+     * @param mask           图片对象
+     * @param requestBodyMap 请求参数
+     * @return 应答结果
+     */
+    @Multipart
+    @POST("v1/images/edits")
+    Single<ImageResponse> editImages(@Part MultipartBody.Part image, @Part MultipartBody.Part mask, @PartMap Map<String, RequestBody> requestBodyMap);
+
 
 }
