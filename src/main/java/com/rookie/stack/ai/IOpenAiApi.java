@@ -2,6 +2,8 @@ package com.rookie.stack.ai;
 
 import com.rookie.stack.ai.domain.chat.ChatCompletionRequest;
 import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
+import com.rookie.stack.ai.domain.edits.EditRequest;
+import com.rookie.stack.ai.domain.edits.EditResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionRequest;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 import io.reactivex.Single;
@@ -37,5 +39,12 @@ public interface IOpenAiApi {
     @POST(v1_chat_completions)
     Single<ChatCompletionResponse> completions(@Body ChatCompletionRequest chatCompletionRequest);
 
-
+    /**
+     * 文本修复
+     *
+     * @param editRequest 请求信息；编辑文本的参数
+     * @return 应答结果
+     */
+    @POST("v1/edits")
+    Single<EditResponse> edits(@Body EditRequest editRequest);
 }

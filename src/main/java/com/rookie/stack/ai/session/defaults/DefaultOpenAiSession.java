@@ -3,6 +3,8 @@ package com.rookie.stack.ai.session.defaults;
 import com.rookie.stack.ai.IOpenAiApi;
 import com.rookie.stack.ai.domain.chat.ChatCompletionRequest;
 import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
+import com.rookie.stack.ai.domain.edits.EditRequest;
+import com.rookie.stack.ai.domain.edits.EditResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionRequest;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 import com.rookie.stack.ai.session.Configuration;
@@ -55,5 +57,10 @@ public class DefaultOpenAiSession implements OpenAiSession {
     @Override
     public ChatCompletionResponse completions(ChatCompletionRequest chatCompletionRequest) {
         return this.openAiApi.completions(chatCompletionRequest).blockingGet();
+    }
+
+    @Override
+    public EditResponse edit(EditRequest editRequest) {
+        return this.openAiApi.edits(editRequest).blockingGet();
     }
 }

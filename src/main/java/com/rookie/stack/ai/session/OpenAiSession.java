@@ -2,6 +2,8 @@ package com.rookie.stack.ai.session;
 
 import com.rookie.stack.ai.domain.chat.ChatCompletionRequest;
 import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
+import com.rookie.stack.ai.domain.edits.EditRequest;
+import com.rookie.stack.ai.domain.edits.EditResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionRequest;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 
@@ -38,6 +40,12 @@ public interface OpenAiSession {
     ChatCompletionResponse completions(ChatCompletionRequest chatCompletionRequest);
 
 
-
+    /**
+     * 文本修复
+     *
+     * @param editRequest 请求信息
+     * @return 应答结果
+     */
+    EditResponse edit(EditRequest editRequest);
 
 }

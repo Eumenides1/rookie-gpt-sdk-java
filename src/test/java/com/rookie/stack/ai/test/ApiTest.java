@@ -6,6 +6,8 @@ import com.rookie.stack.ai.common.Constants;
 import com.rookie.stack.ai.domain.chat.ChatCompletionRequest;
 import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
 import com.rookie.stack.ai.domain.chat.Message;
+import com.rookie.stack.ai.domain.edits.EditRequest;
+import com.rookie.stack.ai.domain.edits.EditResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 import com.rookie.stack.ai.session.Configuration;
 import com.rookie.stack.ai.session.OpenAiSession;
@@ -30,7 +32,8 @@ public class ApiTest {
     public void test_OpenAiSessionFactory() {
         Configuration configuration = new Configuration();
         configuration.setApiHost("https://api.openai.com/");
-        configuration.setApiKey("");
+        String apiKey = System.getenv("MY_API_KEY");
+        configuration.setApiKey(apiKey);
         // 会话工厂
         OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);
         // 开启会话
@@ -63,6 +66,30 @@ public class ApiTest {
         chatCompletionResponse.getChoices().forEach(e -> {
             log.info("测试结果：{}", e.getMessage());
         });
+    }
+
+    /**
+     * 文本修复
+     */
+    @Test
+    public void test_edit() {
+        // 文本请求
+        EditRequest textRequest = EditRequest.builder()
+                .input("因为哎所以爱")
+                .instruction("帮我修改错字")
+                .model(EditRequest.Model.TEXT_DAVINCI_EDIT_001.getCode()).build();
+        EditResponse textResponse = openAiSession.edit(textRequest);
+        log.info("测试结果：{}", textResponse);
+
+        // 代码请求
+        EditRequest codeRequest = EditRequest.builder()
+                // j <= 10 应该修改为 i <= 10
+                .input("for (int i = 1; j <= 10; i++) {\n" +
+                        "    System.out.println(i);\n" +
+                        "}")
+                .instruction("这段代码执行时报错，请帮我修改").model(EditRequest.Model.CODE_DAVINCI_EDIT_001.getCode()).build();
+        EditResponse codeResponse = openAiSession.edit(codeRequest);
+        log.info("测试结果：{}", codeResponse);
     }
 
 }
