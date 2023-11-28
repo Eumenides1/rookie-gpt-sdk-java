@@ -1,5 +1,7 @@
 package com.rookie.stack.ai;
 
+import com.rookie.stack.ai.domain.chat.ChatCompletionRequest;
+import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionRequest;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 import io.reactivex.Single;
@@ -23,6 +25,17 @@ public interface IOpenAiApi {
      */
     @POST(v1_completions)
     Single<QACompletionResponse> completions(@Body QACompletionRequest qaCompletionRequest);
+
+
+    String v1_chat_completions = "v1/chat/completions";
+    /**
+     * 问答模型；默认 GPT-3.5
+     *
+     * @param chatCompletionRequest 请求信息
+     * @return 应答结果
+     */
+    @POST(v1_chat_completions)
+    Single<ChatCompletionResponse> completions(@Body ChatCompletionRequest chatCompletionRequest);
 
 
 }

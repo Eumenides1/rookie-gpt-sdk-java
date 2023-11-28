@@ -1,20 +1,18 @@
-package com.rookie.stack.ai.domain.qa;
+package com.rookie.stack.ai.domain.chat;
 
-import com.rookie.stack.ai.domain.other.Choice;
 import com.rookie.stack.ai.domain.other.Usage;
 import lombok.Data;
 
-
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author eumenides
  * @description
- * @date 2023/11/27
+ * @date 2023/11/28
  */
 @Data
-public class QACompletionResponse implements Serializable {
-    private String warning;
+public class ChatCompletionResponse implements Serializable {
     /** ID */
     private String id;
     /** 对象 */
@@ -22,7 +20,7 @@ public class QACompletionResponse implements Serializable {
     /** 模型 */
     private String model;
     /** 对话 */
-    private Choice[] choices;
+    private List<ChatChoice> choices;
     /** 创建 */
     private long created;
     /** 耗材 */
