@@ -8,6 +8,7 @@ import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
 import com.rookie.stack.ai.domain.chat.Message;
 import com.rookie.stack.ai.domain.edits.EditRequest;
 import com.rookie.stack.ai.domain.edits.EditResponse;
+import com.rookie.stack.ai.domain.images.ImageResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 import com.rookie.stack.ai.session.Configuration;
 import com.rookie.stack.ai.session.OpenAiSession;
@@ -91,5 +92,24 @@ public class ApiTest {
         EditResponse codeResponse = openAiSession.edit(codeRequest);
         log.info("测试结果：{}", codeResponse);
     }
+
+    /**
+     * 生成图片
+     */
+    @Test
+    public void test_genImages() {
+        // 方式1，简单调用
+        ImageResponse imageResponse01 = openAiSession.genImages("画一个996加班的程序员");
+        log.info("测试结果：{}", imageResponse01);
+
+//        // 方式2，调参调用
+//        ImageResponse imageResponse02 = openAiSession.genImages(ImageRequest.builder()
+//                .prompt("画一个996加班的程序员")
+//                .size(ImageEnum.Size.size_256.getCode())
+//                .responseFormat(ImageEnum.ResponseFormat.B64_JSON.getCode()).build());
+//        log.info("测试结果：{}", imageResponse02);
+    }
+
+
 
 }

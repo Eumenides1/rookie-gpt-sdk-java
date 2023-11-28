@@ -5,6 +5,8 @@ import com.rookie.stack.ai.domain.chat.ChatCompletionRequest;
 import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
 import com.rookie.stack.ai.domain.edits.EditRequest;
 import com.rookie.stack.ai.domain.edits.EditResponse;
+import com.rookie.stack.ai.domain.images.ImageRequest;
+import com.rookie.stack.ai.domain.images.ImageResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionRequest;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 import com.rookie.stack.ai.session.Configuration;
@@ -62,5 +64,16 @@ public class DefaultOpenAiSession implements OpenAiSession {
     @Override
     public EditResponse edit(EditRequest editRequest) {
         return this.openAiApi.edits(editRequest).blockingGet();
+    }
+
+    @Override
+    public ImageResponse genImages(String prompt) {
+        ImageRequest imageRequest = ImageRequest.builder().prompt(prompt).build();
+        return this.genImages(imageRequest);
+    }
+
+    @Override
+    public ImageResponse genImages(ImageRequest imageRequest) {
+        return this.openAiApi.genImages(imageRequest).blockingGet();
     }
 }

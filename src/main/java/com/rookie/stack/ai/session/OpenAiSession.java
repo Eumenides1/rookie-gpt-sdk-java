@@ -4,6 +4,8 @@ import com.rookie.stack.ai.domain.chat.ChatCompletionRequest;
 import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
 import com.rookie.stack.ai.domain.edits.EditRequest;
 import com.rookie.stack.ai.domain.edits.EditResponse;
+import com.rookie.stack.ai.domain.images.ImageRequest;
+import com.rookie.stack.ai.domain.images.ImageResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionRequest;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 
@@ -47,5 +49,22 @@ public interface OpenAiSession {
      * @return 应答结果
      */
     EditResponse edit(EditRequest editRequest);
+
+    /**
+     * 生成图片
+     *
+     * @param prompt 图片描述
+     * @return 应答结果
+     */
+    ImageResponse genImages(String prompt);
+
+    /**
+     * 生成图片
+     *
+     * @param imageRequest 图片描述
+     * @return 应答结果
+     */
+    ImageResponse genImages(ImageRequest imageRequest);
+
 
 }

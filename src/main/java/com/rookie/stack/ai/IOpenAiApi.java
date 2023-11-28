@@ -4,6 +4,8 @@ import com.rookie.stack.ai.domain.chat.ChatCompletionRequest;
 import com.rookie.stack.ai.domain.chat.ChatCompletionResponse;
 import com.rookie.stack.ai.domain.edits.EditRequest;
 import com.rookie.stack.ai.domain.edits.EditResponse;
+import com.rookie.stack.ai.domain.images.ImageRequest;
+import com.rookie.stack.ai.domain.images.ImageResponse;
 import com.rookie.stack.ai.domain.qa.QACompletionRequest;
 import com.rookie.stack.ai.domain.qa.QACompletionResponse;
 import io.reactivex.Single;
@@ -47,4 +49,35 @@ public interface IOpenAiApi {
      */
     @POST("v1/edits")
     Single<EditResponse> edits(@Body EditRequest editRequest);
+
+
+    /**
+     * 生成图片
+     * curl https://api.openai.com/v1/images/generations \
+     * -H "Content-Type: application/json" \
+     * -H "Authorization: Bearer $OPENAI_API_KEY" \
+     * -d '{
+     * "prompt": "A cute baby sea otter",
+     * "n": 2,
+     * "size": "1024x1024"
+     * }'
+     * <p>
+     * {
+     * "created": 1589478378,
+     * "data": [
+     * {
+     * "url": "https://..."
+     * },
+     * {
+     * "url": "https://..."
+     * }
+     * ]
+     * }
+     *
+     * @param imageRequest 图片对象
+     * @return 应答结果
+     */
+    @POST("v1/images/generations")
+    Single<ImageResponse> genImages(@Body ImageRequest imageRequest);
+
 }
